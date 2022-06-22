@@ -1,0 +1,187 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <locale.h>
+#include <conio.h>
+#include <string.h>
+#include <Windows.h>
+#include <math.h>
+
+//Criando as structs de clientes, produtos e ordens de compra e venda.
+typedef struct{
+	char id_cliente[3];
+	char nomecliente[50];
+	char cpf[11];
+	char email[50];
+}cliente;
+
+typedef struct{
+	char id_produto[3];
+	char nomeproduto[50];
+	char valor[11];
+	char estoque[5];
+}produto;
+
+typedef struct{
+	char id_compra[3];
+	char nomeproduto[50];
+	char qnt[5];
+	char valor_total[11];
+};
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//Funçoes para transformar float/double para string
+void reverse(char* str, int len)
+{
+    int i = 0, j = len - 1, temp;
+    while (i < j) {
+        temp = str[i];
+        str[i] = str[j];
+        str[j] = temp;
+        i++;
+        j--;
+    }
+}
+ 
+int intToStr(int x, char str[], int d)
+{
+    int i = 0;
+    while (x) {
+        str[i++] = (x % 10) + '0';
+        x = x / 10;
+    }
+ 
+
+    while (i < d)
+        str[i++] = '0';
+ 
+    reverse(str, i);
+    str[i] = '\0';
+    return i;
+}
+ 
+void ftoa(float n, char* res, int afterpoint)
+{
+    // Extract integer part
+    int ipart = (int)n;
+ 
+    // Extract floating part
+    float fpart = n - (float)ipart;
+ 
+    // convert integer part to string
+    int i = intToStr(ipart, res, 0);
+ 
+    // check for display option after point
+    if (afterpoint != 0) {
+        res[i] = ','; // add dot
+ 
+        // Get the value of fraction part upto given no.
+        // of points after dot. The third parameter
+        // is needed to handle cases like 233.007
+        fpart = fpart * pow(10, afterpoint);
+ 
+        intToStr((int)fpart, res + i + 1, afterpoint);
+    }
+}
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+char confirmacao(){
+	char c;
+	
+	do {
+		
+ 		printf("\nConfirma o cadastro? (s ou n)" );
+ 		c= getch();
+ 		
+ 	}while (c != 's' && c != 'n');
+ 	
+ 	return c;
+}
+
+
+int menu(){
+	int escolha, i;
+	
+	printf("Selecione a opção desejada:\n\n1-Criar Cliente\n2-Consultar Cliente\n3-Atualizar Cliente\n4-Excluir Cliente\n5-Criar Produto\n6-Consultar Produto\n7-Atualizar Produto\n8-Excluir Produto\n9-Criar Ordem de Compra\n10-Consultar Ordem de Compra\n11-Atualizar Ordem de Compra\n12-Excluir Ordem de Compra\n0-Sair\n");
+	scanf("%d",&escolha);
+	if(escolha < 0 || escolha > 12){
+		system("CLS");
+		system("COLOR 4");
+		printf("Opção Inválida\nFechando o sistema");
+		
+		for(i = 1; i <= 3; i++){
+			Sleep(500);
+			printf(".");
+		}
+		
+		exit(0);
+	}
+	return escolha;
+}
+
+
+
+int main(){
+
+	setlocale(LC_ALL,"Portuguese");
+	system("color b");
+	
+	printf("Bem Vindo a DUNE PLACAS LTDA\n\n");
+	
+	int processo;
+	
+	do{
+	processo = menu();
+	
+	
+		switch(processo){
+			
+			case 1://criar cliente
+			
+			break;
+			case 2://consultar cliente
+			
+			break;
+			case 3://atualizar cliente
+			
+			break;
+			case 4://excluir cliente
+			
+			break;
+			case 5://criar produto
+			
+			break;
+			case 6://consultar produto
+			
+			break;
+			case 7://atualizar produto
+			
+			break;
+			case 8://excluir produto
+			
+			break;
+			case 9://criar ordem de compra/venda
+			
+			break;
+			case 10://consultar ordem de compra/venda
+			
+			break;
+			case 11://atualizar ordem de compra/venda
+			
+			break;
+			case 12://excluir ordem de compra/venda
+			
+			break;
+			default:
+				system("CLS");
+				printf("Até logo");
+				for(int i = 1; i <= 3; i++){
+					Sleep(500);
+					printf(".");
+				}
+				printf("\n\n");
+			break;
+		
+		}
+	}while(processo != 0);
+	
+	return 0;
+}
