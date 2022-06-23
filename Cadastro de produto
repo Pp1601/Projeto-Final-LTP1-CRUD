@@ -42,38 +42,39 @@ int main(){
 			getch();
 		}
 		else{
-			printf("Digite o id do produto a ser cadastrado (digite EXIT para cancelar): ");
+			printf("Digite o id do produto a ser cadastrado : ");
 				gets(n.id_produto);
 			fflush(stdin);
 			
-			if(n.id_produto != "EXIT"){
-				printf("\nDigite o nome do produto: ");
-					gets(n.nomeproduto);
-				fflush(stdin);
+			printf("\nDigite o nome do produto: ");
+				gets(n.nomeproduto);
+			fflush(stdin);
 				
-				printf("\nDigite o valor do produto: ");
-					gets(n.valor);
-				fflush(stdin);
+			printf("\nDigite o valor do produto: ");
+				gets(n.valor);
+			fflush(stdin);
 				
-				printf("\nDigite a quantidade do produto em estoque: ");
-					gets(n.estoque);
-				fflush(stdin);
+			printf("\nDigite a quantidade do produto em estoque: ");
+				gets(n.estoque);
+			fflush(stdin);
 				
-				char c = confirmacao();
+			char c = confirmacao();
 				
 				if(c == 's'){
 					parametro = fwrite(&n, sizeof(produto),1,Arquivo);
 					if(parametro == 1){
 						system("CLS");
 						printf("Cadastro efetuado com sucesso!");
+						Sleep(2000);
 					}
 					else{
 						system("CLS");
 						printf("Não foi possível efetuar o cadastro, favor informar o gerente.");
 						getch();
+						Sleep(2000);
 					}
 				}
-			}
+			
 		}
 	fclose(Arquivo);
 }
