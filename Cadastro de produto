@@ -1,0 +1,79 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <locale.h>
+#include <conio.h>
+#include <string.h>
+#include <Windows.h>
+#include <math.h>
+
+typedef struct{
+	char id_produto[3];
+	char nomeproduto[50];
+	char valor[11];
+	char estoque[5];
+}produto;
+
+char confirmacao(){
+	char c;
+	
+	do {
+		
+ 		printf("\nConfirma o cadastro? (s ou n)" );
+ 		c= getch();
+ 		
+ 	}while (c != 's' && c != 'n');
+ 	
+ 	return c;
+}
+
+int main(){
+	
+	FILE *Arquivo;
+	
+	produto n;
+	int parametro;
+	
+	char Local_arq[] = {"Produtos.txt"};
+	
+	Arquivo = fopen(Local_arq,"a+b");
+	
+		if(Arquivo == NULL){
+			printf("Erro abertura do Arquivo : %s. Tecle algo !\n",Local_arq);
+			getch();
+		}
+		else{
+			printf("Digite o id do produto a ser cadastrado (digite EXIT para cancelar): ");
+				gets(n.id_produto);
+			fflush(stdin);
+			
+			if(n.id_produto != "EXIT"){
+				printf("\nDigite o nome do produto: ");
+					gets(n.nomeproduto);
+				fflush(stdin);
+				
+				printf("\nDigite o valor do produto: ");
+					gets(n.valor);
+				fflush(stdin);
+				
+				printf("\nDigite a quantidade do produto em estoque: ");
+					gets(n.estoque);
+				fflush(stdin);
+				
+				char c = confirmacao();
+				
+				if(c == 's'){
+					parametro = fwrite(&n, sizeof(produto),1,Arquivo);
+					if(parametro == 1){
+						system("CLS");
+						printf("Cadastro efetuado com sucesso!");
+					}
+					else{
+						system("CLS");
+						printf("Não foi possível efetuar o cadastro, favor informar o gerente.");
+						getch();
+					}
+				}
+			}
+		}
+	fclose(Arquivo);
+}
