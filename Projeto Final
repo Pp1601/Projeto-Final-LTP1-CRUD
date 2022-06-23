@@ -7,20 +7,21 @@
 #include <math.h>
 
 //Criando as structs de clientes, produtos e ordens de compra e venda.
+//cliente
 typedef struct{
 	char id_cliente[3];
 	char nomecliente[50];
 	char cpf[11];
 	char email[50];
 }cliente;
-
+//produto
 typedef struct{
 	char id_produto[3];
 	char nomeproduto[50];
 	char valor[11];
 	char estoque[5];
 }produto;
-
+//compra
 typedef struct{
 	char id_compra[3];
 	char nomeproduto[50];
@@ -204,16 +205,127 @@ void CadastroProduto(){
 }
 //Cadastro Compra
 
-void CadastroCompra(){
+int CadastroCompra(){
+	FILE *Arquivo;
+	FILE *Arquivo1;
+	
+	compra n;
+	produto m;
+	int parametro, parametro1, x, confirma_cod = 0;
+	
+	char Local_arq[] = {"Compra_e_Venda.txt"}, Produto_arq[] = {"Produtos.txt"}, codigo[3];
+	
+	Arquivo = fopen(Local_arq,"a+b");
+	Arquivo1 = fopen(Produto_arq,"r+");
+	
+		if(Arquivo == NULL){
+			printf("Erro abertura do Arquivo : %s. Tecle algo !\n",Local_arq);
+			getch();
+		}
+		if(Arquivo1 == NULL){
+			printf("Erro abertura do Arquivo : %s. Tecle algo !\n",Produto_arq);
+			getch();
+		}
+		else{
+			
+			printf("Digite o codigo da compra : ");
+				gets(n.id_compra);
+			fflush(stdin);
+			
+			printf("\nDigite quantos produtos deseja comprar: ");
+				scanf("%d",&x);
+			fflush(stdin);
+			
+			for(int i = 0; i < x; i++){
+				
+			rewind(Arquivo1);
+				
+			printf("\nDigite o codigo do produto : ");
+				gets(codigo);
+			fflush(stdin);
+			
+			while(fread(&m,sizeof(produto),1,Arquivo1)){
+
+				if(strcmp(codigo,m.id_produto) == 0){
+				confirma_cod = 1;
+				
+				printf("\nDigite a quantidade desejada deste produto: ");
+					gets(n.qnt);
+				fflush(stdin);
+				
+				double qnt_estoque = atof(m.estoque);
+				double qnt_desejada = atof(n.qnt);
+				
+				qnt_estoque = qnt_estoque - qnt_desejada;
+				
+					if(qnt_estoque >= 0){
+						
+						strcat(n.nomeproduto, m.nomeproduto);
+						
+						ftoa(qnt_estoque, m.estoque, 0);
+						
+						double preco = atof(m.valor);
+						preco = preco * qnt_desejada;
+						
+						double preco_cheio = 0;
+						preco_cheio = preco_cheio + preco;
+						
+						ftoa(preco_cheio, n.valor_total, 2);
+						
+					}
+					else{
+						printf("\n\nQuantidade não disponivel em estoque!\n\nVoltando ao menu");
+						for(int y = 1; y <= 3; y++){
+						Sleep(500);
+						printf(".");
+						}
+						return 0;
+					}
+					}
+				if(!confirma_cod){
+					
+					printf("\nProduto inexistente!\n\nVoltando ao menu");
+					for(int z = 1; z <= 3; z++){
+						Sleep(500);
+						printf(".");
+					}
+					return 0;
+							
+				}
+		}
+	}
+				char c = confirmacao();
+				
+				if(c == 's'){
+					parametro1 = fwrite(&m, sizeof(produto),1,Arquivo1);
+					parametro = fwrite(&n, sizeof(compra),1,Arquivo);
+					if(parametro == 1 && parametro1 == 1){
+						system("CLS");
+						printf("Cadastro de compra efetuado com sucesso!");
+						Sleep(2000);
+					}
+					else{
+						system("CLS");
+						printf("Não foi possível efetuar o cadastro, favor informar o gerente.");
+						getch();
+						Sleep(2000);
+					}
+				}
+		}
+		
+	fclose(Arquivo);
+	fclose(Arquivo1);
 	
 }
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//Consultas
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //Menu
 int menu(){
 	int escolha, i;
 	
-	printf("Selecione a opção desejada:\n\n1-Criar Cliente\n2-Consultar Cliente\n3-Atualizar Cliente\n4-Excluir Cliente\n5-Criar Produto\n6-Consultar Produto\n7-Atualizar Produto\n8-Excluir Produto\n9-Criar Ordem de Compra\n10-Consultar Ordem de Compra\n11-Atualizar Ordem de Compra\n12-Excluir Ordem de Compra\n0-Sair\n");
+	printf("Selecione a opção desejada:\n\n1-Criar Cliente\n2-Consultar Cliente\n3-Atualizar Cliente\n4-Excluir Cliente\n5-Criar Produto\n6-Consultar Produto\n7-Atualizar Produto\n8-Excluir Produto\n9-Criar Ordem de Compra\n10-Consultar Ordem de Compra\n11-Atualizar Ordem de Compra\n12-Excluir Ordem de Compra\n0-Sair\n\n");
 	scanf("%d",&escolha);
 	if(escolha < 0 || escolha > 12){
 		system("CLS");
@@ -277,7 +389,10 @@ int main(){
 			
 			break;
 			case 9://criar ordem de compra/venda
-			
+			system("CLS");
+			fflush(stdin);
+			CadastroCompra();
+			system("CLS");
 			break;
 			case 10://consultar ordem de compra/venda
 			
@@ -290,7 +405,7 @@ int main(){
 			break;
 			default:
 				system("CLS");
-				printf("Ate nunca");
+				printf("Encerrando programa");
 				for(int i = 1; i <= 3; i++){
 					Sleep(500);
 					printf(".");
