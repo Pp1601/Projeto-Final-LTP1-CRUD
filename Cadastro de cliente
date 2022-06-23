@@ -42,38 +42,39 @@ int main(){
 			getch();
 		}
 		else{
-			printf("Digite o id do cliente a ser criado (digite SAIR para cancelar): ");
+			printf("Digite o id do cliente a ser cadastrado : ");
 				gets(n.id_cliente);
 			fflush(stdin);
 			
-			if(n.id_cliente != "SAIR"){
-				printf("\nDigite o nome do cliente: ");
-					gets(n.nomecliente);
-				fflush(stdin);
+			printf("\nDigite o nome do cliente: ");
+				gets(n.nomecliente);
+			fflush(stdin);
 				
-				printf("\nDigite o cpf do cliente: ");
-					gets(n.cpf);
-				fflush(stdin);
+			printf("\nDigite o cpf do cliente: ");
+				gets(n.cpf);
+			fflush(stdin);
 				
-				printf("\nDigite o e-mail do cliente: ");
-					gets(n.email);
-				fflush(stdin);
+			printf("\nDigite o e-mail do cliente: ");
+				gets(n.email);
+			fflush(stdin);
 				
-				char c = confirmacao();
+			char c = confirmacao();
 				
 				if(c == 's'){
 					parametro = fwrite(&n, sizeof(cliente),1,Arquivo);
 					if(parametro == 1){
 						system("CLS");
 						printf("Cadastro efetuado com sucesso!");
+						Sleep(2000);
 					}
 					else{
 						system("CLS");
 						printf("Não foi possível efetuar o cadastro, favor informar o gerente.");
 						getch();
+						Sleep(2000);
 					}
 				}
-			}
+			
 		}
 	fclose(Arquivo);
 }
