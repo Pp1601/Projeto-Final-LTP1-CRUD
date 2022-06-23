@@ -113,38 +113,39 @@ void CadastroCliente(){
 			getch();
 		}
 		else{
-			printf("Digite o id do cliente a ser cadastrado (digite EXIT para cancelar): ");
+			printf("Digite o id do cliente a ser cadastrado : ");
 				gets(n.id_cliente);
 			fflush(stdin);
 			
-			if(n.id_cliente != "EXIT"){
-				printf("\nDigite o nome do cliente: ");
-					gets(n.nomecliente);
-				fflush(stdin);
+			printf("\nDigite o nome do cliente: ");
+				gets(n.nomecliente);
+			fflush(stdin);
 				
-				printf("\nDigite o cpf do cliente: ");
-					gets(n.cpf);
-				fflush(stdin);
+			printf("\nDigite o cpf do cliente: ");
+				gets(n.cpf);
+			fflush(stdin);
 				
-				printf("\nDigite o e-mail do cliente: ");
-					gets(n.email);
-				fflush(stdin);
+			printf("\nDigite o e-mail do cliente: ");
+				gets(n.email);
+			fflush(stdin);
 				
-				char c = confirmacao();
+			char c = confirmacao();
 				
 				if(c == 's'){
 					parametro = fwrite(&n, sizeof(cliente),1,Arquivo);
 					if(parametro == 1){
 						system("CLS");
 						printf("Cadastro efetuado com sucesso!");
+						Sleep(2000);
 					}
 					else{
 						system("CLS");
 						printf("Não foi possível efetuar o cadastro, favor informar o gerente.");
 						getch();
+						Sleep(2000);
 					}
 				}
-			}
+			
 		}
 	fclose(Arquivo);
 }
@@ -165,38 +166,39 @@ void CadastroProduto(){
 			getch();
 		}
 		else{
-			printf("Digite o id do produto a ser cadastrado (digite EXIT para cancelar): ");
+			printf("Digite o id do produto a ser cadastrado : ");
 				gets(n.id_produto);
 			fflush(stdin);
 			
-			if(n.id_produto != "EXIT"){
-				printf("\nDigite o nome do produto: ");
-					gets(n.nomeproduto);
-				fflush(stdin);
+			printf("\nDigite o nome do produto: ");
+				gets(n.nomeproduto);
+			fflush(stdin);
 				
-				printf("\nDigite o valor do produto: ");
-					gets(n.valor);
-				fflush(stdin);
+			printf("\nDigite o valor do produto: ");
+				gets(n.valor);
+			fflush(stdin);
 				
-				printf("\nDigite a quantidade do produto em estoque: ");
-					gets(n.estoque);
-				fflush(stdin);
+			printf("\nDigite a quantidade do produto em estoque: ");
+				gets(n.estoque);
+			fflush(stdin);
 				
-				char c = confirmacao();
+			char c = confirmacao();
 				
 				if(c == 's'){
 					parametro = fwrite(&n, sizeof(produto),1,Arquivo);
 					if(parametro == 1){
 						system("CLS");
 						printf("Cadastro efetuado com sucesso!");
+						Sleep(2000);
 					}
 					else{
 						system("CLS");
 						printf("Não foi possível efetuar o cadastro, favor informar o gerente.");
 						getch();
+						Sleep(2000);
 					}
 				}
-			}
+			
 		}
 	fclose(Arquivo);
 }
@@ -288,11 +290,12 @@ int main(){
 			break;
 			default:
 				system("CLS");
-				printf("Até logo");
+				printf("Ate nunca");
 				for(int i = 1; i <= 3; i++){
 					Sleep(500);
 					printf(".");
 				}
+				printf("=)");
 				printf("\n\n");
 			break;
 		
