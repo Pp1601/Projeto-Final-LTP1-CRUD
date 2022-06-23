@@ -26,7 +26,7 @@ typedef struct{
 	char nomeproduto[50];
 	char qnt[5];
 	char valor_total[11];
-};
+}compra;
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //Funçoes para transformar float/double para string
 void reverse(char* str, int len)
@@ -95,8 +95,61 @@ char confirmacao(){
  	
  	return c;
 }
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//Cadastros Cliente, Produto e Ordens de Compra
 
-
+void CadastroCliente(){
+	FILE *Arquivo;
+	
+	cliente n;
+	int parametro;
+	
+	char Local_arq[] = {"Clientes.txt"};
+	
+	Arquivo = fopen(Local_arq,"a+b");
+	
+		if(Arquivo == NULL){
+			printf("Erro abertura do Arquivo : %s. Tecle algo !\n",Local_arq);
+			getch();
+		}
+		else{
+			printf("Digite o id do cliente a ser criado (digite SAIR para cancelar): ");
+				gets(n.id_cliente);
+			fflush(stdin);
+			
+			if(n.id_cliente != "SAIR"){
+				printf("\nDigite o nome do cliente: ");
+					gets(n.nomecliente);
+				fflush(stdin);
+				
+				printf("\nDigite o cpf do cliente: ");
+					gets(n.cpf);
+				fflush(stdin);
+				
+				printf("\nDigite o e-mail do cliente: ");
+					gets(n.email);
+				fflush(stdin);
+				
+				char c = confirmacao();
+				
+				if(c == 's'){
+					parametro = fwrite(&n, sizeof(cliente),1,Arquivo);
+					if(parametro == 1){
+						system("CLS");
+						printf("Cadastro efetuado com sucesso!");
+					}
+					else{
+						system("CLS");
+						printf("Não foi possível efetuar o cadastro, favor informar o gerente.");
+						getch();
+					}
+				}
+			}
+		}
+	fclose(Arquivo);
+}
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//Menu
 int menu(){
 	int escolha, i;
 	
@@ -116,9 +169,8 @@ int menu(){
 	}
 	return escolha;
 }
-
-
-
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//MAIN
 int main(){
 
 	setlocale(LC_ALL,"Portuguese");
@@ -135,7 +187,10 @@ int main(){
 		switch(processo){
 			
 			case 1://criar cliente
-			
+			system("CLS");
+			fflush(stdin);
+			CadastroCliente();
+			system("CLS");
 			break;
 			case 2://consultar cliente
 			
