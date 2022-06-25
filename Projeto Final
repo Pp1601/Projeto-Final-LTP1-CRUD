@@ -133,7 +133,7 @@ void CadastroCliente(){
 			char c = confirmacao();
 				
 				if(c == 's'){
-					parametro = fwrite(&n, sizeof(cliente),1,Arquivo);
+					parametro = fwrite(&n, sizeof(n),1,Arquivo);
 					if(parametro == 1){
 						system("CLS");
 						printf("Cadastro efetuado com sucesso!");
@@ -186,7 +186,7 @@ void CadastroProduto(){
 			char c = confirmacao();
 				
 				if(c == 's'){
-					parametro = fwrite(&n, sizeof(produto),1,Arquivo);
+					parametro = fwrite(&n, sizeof(n),1,Arquivo);
 					if(parametro == 1){
 						system("CLS");
 						printf("Cadastro efetuado com sucesso!");
@@ -244,7 +244,7 @@ int CadastroCompra(){
 				gets(codigo);
 			fflush(stdin);
 			
-			while(fread(&m,sizeof(produto),1,Arquivo1)){
+			while(fread(&m,sizeof(m),1,Arquivo1)){
 
 				if(strcmp(codigo,m.id_produto) == 0){
 				confirma_cod = 1;
@@ -297,8 +297,8 @@ int CadastroCompra(){
 				char c = confirmacao();
 				
 				if(c == 's'){
-					parametro1 = fwrite(&m, sizeof(produto),1,Arquivo1);
-					parametro = fwrite(&n, sizeof(compra),1,Arquivo);
+					parametro1 = fwrite(&m, sizeof(m),1,Arquivo1);
+					parametro = fwrite(&n, sizeof(n),1,Arquivo);
 					if(parametro == 1 && parametro1 == 1){
 						system("CLS");
 						printf("Cadastro de compra efetuado com sucesso!");
@@ -360,8 +360,8 @@ int main(){
 			
 			case 1://criar cliente
 			system("CLS");
-			fflush(stdin);
-			CadastroCliente();
+				fflush(stdin);
+				CadastroCliente();
 			system("CLS");
 			break;
 			case 2://consultar cliente
@@ -375,8 +375,8 @@ int main(){
 			break;
 			case 5://criar produto
 			system("CLS");
-			fflush(stdin);
-			CadastroProduto();
+				fflush(stdin);
+				CadastroProduto();
 			system("CLS");
 			break;
 			case 6://consultar produto
@@ -390,8 +390,8 @@ int main(){
 			break;
 			case 9://criar ordem de compra/venda
 			system("CLS");
-			fflush(stdin);
-			CadastroCompra();
+				fflush(stdin);
+				CadastroCompra();
 			system("CLS");
 			break;
 			case 10://consultar ordem de compra/venda
