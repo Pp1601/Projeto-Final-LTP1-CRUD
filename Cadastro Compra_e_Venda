@@ -88,7 +88,6 @@ char confirmacao(){
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 int main(){
-	
 	FILE *Arquivo;
 	FILE *Arquivo1;
 	
@@ -120,14 +119,14 @@ int main(){
 			fflush(stdin);
 			
 			for(int i = 0; i < x; i++){
-				
+			confirma_cod = 0;
 			rewind(Arquivo1);
 				
 			printf("\nDigite o codigo do produto : ");
 				gets(codigo);
 			fflush(stdin);
 			
-			while(fread(&m,sizeof(produto),1,Arquivo1)){
+			while(fread(&m,sizeof(m),1,Arquivo1)){
 
 				if(strcmp(codigo,m.id_produto) == 0){
 				confirma_cod = 1;
@@ -165,23 +164,24 @@ int main(){
 						return 0;
 					}
 					}
-				if(!confirma_cod){
+				
+		}
+		if(!confirma_cod){
 					
 					printf("\nProduto inexistente!\n\nVoltando ao menu");
 					for(int z = 1; z <= 3; z++){
-						Sleep(500);
+						Sleep(750);
 						printf(".");
 					}
 					return 0;
 							
 				}
-		}
 	}
 				char c = confirmacao();
 				
 				if(c == 's'){
-					parametro1 = fwrite(&m, sizeof(produto),1,Arquivo1);
-					parametro = fwrite(&n, sizeof(compra),1,Arquivo);
+					parametro1 = fwrite(&m, sizeof(m),1,Arquivo1);
+					parametro = fwrite(&n, sizeof(n),1,Arquivo);
 					if(parametro == 1 && parametro1 == 1){
 						system("CLS");
 						printf("Cadastro de compra efetuado com sucesso!");
@@ -198,4 +198,5 @@ int main(){
 		
 	fclose(Arquivo);
 	fclose(Arquivo1);
+	
 }
