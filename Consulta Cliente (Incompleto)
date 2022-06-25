@@ -71,15 +71,16 @@ int main(){
 							return 0;
 						}
 					}
-					//if(!confirma_cod){
-					//	printf("Não há clientes cadastrados com este código!\nVoltando ao menu");
-					//		for(int z = 1; z <= 3; z++){
-					//			Sleep(750);
-					//			printf(".");
-					//	}
-					//	return 0;
-					//}
 				}
+					if(!confirma_cod){
+						printf("Não há clientes cadastrados com este código!\nVoltando ao menu");
+							for(int z = 1; z <= 3; z++){
+								Sleep(750);
+								printf(".");
+						}
+						return 0;
+					}
+				
 			}
 		}
 	fclose(Arquivo);
