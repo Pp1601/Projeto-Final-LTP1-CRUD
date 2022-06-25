@@ -33,7 +33,7 @@ int main(){
 	FILE *Arquivo;
 	
 	cliente n;
-	int parametro, confirma_cod, repete_consulta = 1;
+	int parametro, confirma_cod, y = 1;
 	char codigo[3], c;
 	
 	char Local_arq[] = {"Clientes.txt"};
@@ -44,7 +44,7 @@ int main(){
 			printf("Erro abertura do Arquivo : %s. Tecle algo !\n",Local_arq);
 		}
 		else{
-			while (repete_consulta == 1){
+			for(int x = 0; x < y; x++){
 				rewind(Arquivo);
 				printf("Digite o codigo do cliente que deseja consultar: ");
 					gets(codigo);
@@ -63,22 +63,22 @@ int main(){
 						fflush(stdin);
 						c = getch();
 						
-						if(c = 's'){
+						if(c == 's'){
 							system("CLS");
-						}
-						else{
+							y++;
+						}else{
 							system("CLS");
-							repete_consulta = 0;
+							return 0;
 						}
 					}
-					if(!confirma_cod){
-						printf("Não há clientes cadastrados com este código!\nVoltando ao menu");
-							for(int z = 1; z <= 3; z++){
-								Sleep(750);
-								printf(".");
-						}
-						return 0;
-					}
+					//if(!confirma_cod){
+					//	printf("Não há clientes cadastrados com este código!\nVoltando ao menu");
+					//		for(int z = 1; z <= 3; z++){
+					//			Sleep(750);
+					//			printf(".");
+					//	}
+					//	return 0;
+					//}
 				}
 			}
 		}
