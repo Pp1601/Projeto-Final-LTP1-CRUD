@@ -1,0 +1,76 @@
+int ExcluiCliente(){
+	FILE *Arquivo;
+	
+	cliente n;
+	int parametro, confirma_cod, y = 1;
+	char codigo[3], c, d;
+	
+	char Local_arq[] = {"Clientes.txt"};
+	
+	Arquivo = fopen(Local_arq,"rb+");
+	
+		if(Arquivo == NULL){
+			printf("Erro abertura do Arquivo : %s. Tecle algo !\n",Local_arq);
+		}
+		else{
+			for(int x = 0; x < y; x++){
+				rewind(Arquivo);
+				printf("Digite o codigo do cliente que deseja apagar: ");
+					gets(codigo);
+				fflush(stdin);
+				
+				system("CLS");
+				
+				confirma_cod = 0;
+				while(fread(&n,sizeof(n),1,Arquivo)){
+					if(strcmp(codigo,n.id_cliente)==0){
+						confirma_cod = 1;
+						printf("-DADOS DO CLIENTE-\n\nId: %s\nNome: %s\nCpf: %s\nE-mail: %s\n\n\n", n.id_cliente, n.nomecliente, n.cpf, n.email);
+						
+						printf("\n\nTem certeza que deseja excluir este cliente? (s ou n)");
+						fflush(stdin);
+						d = getch();
+						
+						if(d == 's'){
+							memset(&n,NULL,sizeof(n));
+							fseek(Arquivo,sizeof(n)*-1,SEEK_CUR);
+							parametro = fwrite(&n,sizeof(n),1,Arquivo);
+							
+								if(parametro == 1){
+									system("CLS");
+									printf("Cliente excluido com sucesso!");
+									Sleep(1500);
+								}else{
+									system("CLS");
+									printf("Não foi possível efetuar a exclusão, favor informar o gerente.");
+									Sleep(2000);
+									return 0;
+								}
+						}
+						system("CLS");
+						printf("Deseja apagar outro cliente? (s ou n)");
+						fflush(stdin);
+						c = getch();
+						
+						if(c == 's'){
+							system("CLS");
+							y++;
+						}else{
+							system("CLS");
+							return 0;
+						}
+					}
+				}
+					if(!confirma_cod){
+						printf("Não há clientes cadastrados com este código!\nVoltando ao menu");
+							for(int z = 1; z <= 3; z++){
+								Sleep(750);
+								printf(".");
+						}
+						return 0;
+					}
+				
+			}
+		}
+	fclose(Arquivo);
+}
