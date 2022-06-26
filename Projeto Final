@@ -493,7 +493,434 @@ int ConsultaCompra(){
 		}
 	fclose(Arquivo);
 }
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//Atualiza Cliente
 
+int AtualizaCliente(){
+	FILE *Arquivo;
+	
+	cliente n;
+	int parametro, confirma_cod, y = 1;
+	char codigo[3], c, d;
+	
+	char Local_arq[] = {"Clientes.txt"};
+	
+	Arquivo = fopen(Local_arq,"rb+");
+	
+		if(Arquivo == NULL){
+			printf("Erro abertura do Arquivo : %s. Tecle algo !\n",Local_arq);
+		}
+		else{
+			for(int x = 0; x < y; x++){
+				rewind(Arquivo);
+				printf("Digite o codigo do cliente que deseja alterar: ");
+					gets(codigo);
+				fflush(stdin);
+				
+				system("CLS");
+				
+				confirma_cod = 0;
+				while(fread(&n,sizeof(n),1,Arquivo)){
+					if(strcmp(codigo,n.id_cliente)==0){
+						confirma_cod = 1;
+						printf("-DADOS DO CLIENTE-\n\nId: %s\nNome: %s\nCpf: %s\nE-mail: %s\n\n\n", n.id_cliente, n.nomecliente, n.cpf, n.email);
+						printf("-NOVOS DADOS DO CLIENTE-");
+						printf("\n\nId: ");
+							gets(n.id_cliente);
+						fflush(stdin);
+			
+						printf("Nome: ");
+							gets(n.nomecliente);
+						fflush(stdin);
+				
+						printf("Cpf: ");
+							gets(n.cpf);
+						fflush(stdin);
+				
+						printf("E-mail: ");
+							gets(n.email);
+						fflush(stdin);
+						
+						printf("\n\nConfirma as alterações? (s ou n)");
+						fflush(stdin);
+						d = getch();
+						
+						if(d == 's'){
+							fseek(Arquivo,sizeof(n)*-1,SEEK_CUR);
+							parametro = fwrite(&n,sizeof(n),1,Arquivo);
+							
+								if(parametro == 1){
+									system("CLS");
+									printf("Alteração concluida com sucesso!");
+									Sleep(1500);
+								}else{
+									system("CLS");
+									printf("Não foi possível efetuar o cadastro, favor informar o gerente.");
+									Sleep(2000);
+									return 0;
+								}
+						}
+						system("CLS");
+						printf("Deseja realizar outra alteração? (s ou n)");
+						fflush(stdin);
+						c = getch();
+						
+						if(c == 's'){
+							system("CLS");
+							y++;
+						}else{
+							system("CLS");
+							return 0;
+						}
+					}
+				}
+					if(!confirma_cod){
+						printf("Não há clientes cadastrados com este código!\nVoltando ao menu");
+							for(int z = 1; z <= 3; z++){
+								Sleep(750);
+								printf(".");
+						}
+						return 0;
+					}
+				
+			}
+		}
+	fclose(Arquivo);
+	
+}
+//Atualiza Produto
+
+int AtualizaProduto(){
+	FILE *Arquivo;
+	
+	produto n;
+	int parametro, confirma_cod, y = 1;
+	char codigo[3], c, d;
+	
+	char Local_arq[] = {"Produtos.txt"};
+	
+	Arquivo = fopen(Local_arq,"rb+");
+	
+		if(Arquivo == NULL){
+			printf("Erro abertura do Arquivo : %s. Tecle algo !\n",Local_arq);
+		}
+		else{
+			for(int x = 0; x < y; x++){
+				rewind(Arquivo);
+				printf("Digite o codigo do produto que deseja alterar: ");
+					gets(codigo);
+				fflush(stdin);
+				
+				system("CLS");
+				
+				confirma_cod = 0;
+				while(fread(&n,sizeof(n),1,Arquivo)){
+					if(strcmp(codigo,n.id_produto)==0){
+						confirma_cod = 1;
+						printf("-DADOS DO PRODUTO-\n\nId: %s\nNome: %s\nValor R$ %s\nQuantidade disponível em estoque: %s\n\n\n", n.id_produto, n.nomeproduto, n.valor, n.estoque);
+						printf("-NOVOS DADOS DO PRODUTO-");
+						printf("\n\nId: ");
+							gets(n.id_produto);
+						fflush(stdin);
+			
+						printf("Nome: ");
+							gets(n.nomeproduto);
+						fflush(stdin);
+				
+						printf("Valor R$ ");
+							gets(n.valor);
+						fflush(stdin);
+				
+						printf("Quantidade disponível em estoque: ");
+							gets(n.estoque);
+						fflush(stdin);
+						
+						printf("\n\nConfirma as alterações? (s ou n)");
+						fflush(stdin);
+						d = getch();
+						
+						if(d == 's'){
+							fseek(Arquivo,sizeof(n)*-1,SEEK_CUR);
+							parametro = fwrite(&n,sizeof(n),1,Arquivo);
+							
+								if(parametro == 1){
+									system("CLS");
+									printf("Alteração concluida com sucesso!");
+									Sleep(1500);
+								}else{
+									system("CLS");
+									printf("Não foi possível efetuar o cadastro, favor informar o gerente.");
+									Sleep(2000);
+									return 0;
+								}
+						}
+						system("CLS");
+						printf("Deseja realizar outra alteração? (s ou n)");
+						fflush(stdin);
+						c = getch();
+						
+						if(c == 's'){
+							system("CLS");
+							y++;
+						}else{
+							system("CLS");
+							return 0;
+						}
+					}
+				}
+					if(!confirma_cod){
+						printf("Não há produtos cadastrados com este código!\nVoltando ao menu");
+							for(int z = 1; z <= 3; z++){
+								Sleep(750);
+								printf(".");
+						}
+						return 0;
+					}
+				
+			}
+		}
+	fclose(Arquivo);
+}
+//Atualiza Compra
+
+int AtualizaCompra(){
+	
+}
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//Exclui Cliente
+
+int ExcluiCliente(){
+	FILE *Arquivo;
+	
+	cliente n;
+	int parametro, confirma_cod, y = 1;
+	char codigo[3], c, d;
+	
+	char Local_arq[] = {"Clientes.txt"};
+	
+	Arquivo = fopen(Local_arq,"rb+");
+	
+		if(Arquivo == NULL){
+			printf("Erro abertura do Arquivo : %s. Tecle algo !\n",Local_arq);
+		}
+		else{
+			for(int x = 0; x < y; x++){
+				rewind(Arquivo);
+				printf("Digite o codigo do cliente que deseja apagar: ");
+					gets(codigo);
+				fflush(stdin);
+				
+				system("CLS");
+				
+				confirma_cod = 0;
+				while(fread(&n,sizeof(n),1,Arquivo)){
+					if(strcmp(codigo,n.id_cliente)==0){
+						confirma_cod = 1;
+						printf("-DADOS DO CLIENTE-\n\nId: %s\nNome: %s\nCpf: %s\nE-mail: %s\n\n\n", n.id_cliente, n.nomecliente, n.cpf, n.email);
+						
+						printf("\n\nTem certeza que deseja excluir este cliente? (s ou n)");
+						fflush(stdin);
+						d = getch();
+						
+						if(d == 's'){
+							memset(&n,0,sizeof(n));
+							fseek(Arquivo,sizeof(n)*-1,SEEK_CUR);
+							parametro = fwrite(&n,sizeof(n),1,Arquivo);
+							
+								if(parametro == 1){
+									system("CLS");
+									printf("Cliente excluido com sucesso!");
+									Sleep(1500);
+								}else{
+									system("CLS");
+									printf("Não foi possível efetuar a exclusão, favor informar o gerente.");
+									Sleep(2000);
+									return 0;
+								}
+						}
+						system("CLS");
+						printf("Deseja apagar outro cliente? (s ou n)");
+						fflush(stdin);
+						c = getch();
+						
+						if(c == 's'){
+							system("CLS");
+							y++;
+						}else{
+							system("CLS");
+							return 0;
+						}
+					}
+				}
+					if(!confirma_cod){
+						printf("Não há clientes cadastrados com este código!\nVoltando ao menu");
+							for(int z = 1; z <= 3; z++){
+								Sleep(750);
+								printf(".");
+						}
+						return 0;
+					}
+				
+			}
+		}
+	fclose(Arquivo);
+}
+//Exclui Produto
+
+int ExcluiProduto(){
+	FILE *Arquivo;
+	
+	produto n;
+	int parametro, confirma_cod, y = 1;
+	char codigo[3], c, d;
+	
+	char Local_arq[] = {"Produtos.txt"};
+	
+	Arquivo = fopen(Local_arq,"rb+");
+	
+		if(Arquivo == NULL){
+			printf("Erro abertura do Arquivo : %s. Tecle algo !\n",Local_arq);
+		}
+		else{
+			for(int x = 0; x < y; x++){
+				rewind(Arquivo);
+				printf("Digite o codigo do produto que deseja apagar: ");
+					gets(codigo);
+				fflush(stdin);
+				
+				system("CLS");
+				
+				confirma_cod = 0;
+				while(fread(&n,sizeof(n),1,Arquivo)){
+					if(strcmp(codigo,n.id_produto)==0){
+						confirma_cod = 1;
+						printf("-DADOS DO PRODUTO-\n\nId: %s\nNome: %s\nValor R$ %s\nQuantidade disponível em estoque: %s\n\n\n", n.id_produto, n.nomeproduto, n.valor, n.estoque);
+						
+						printf("\n\nTem certeza que deseja excluir este produto? (s ou n)");
+						fflush(stdin);
+						d = getch();
+						
+						if(d == 's'){
+							memset(&n,0,sizeof(n));
+							fseek(Arquivo,sizeof(n)*-1,SEEK_CUR);
+							parametro = fwrite(&n,sizeof(n),1,Arquivo);
+							
+								if(parametro == 1){
+									system("CLS");
+									printf("Produto excluido com sucesso!");
+									Sleep(1500);
+								}else{
+									system("CLS");
+									printf("Não foi possível efetuar a exclusão, favor informar o gerente.");
+									Sleep(2000);
+									return 0;
+								}
+						}
+						system("CLS");
+						printf("Deseja excluir outro produto? (s ou n)");
+						fflush(stdin);
+						c = getch();
+						
+						if(c == 's'){
+							system("CLS");
+							y++;
+						}else{
+							system("CLS");
+							return 0;
+						}
+					}
+				}
+					if(!confirma_cod){
+						printf("Não há produtos cadastrados com este código!\nVoltando ao menu");
+							for(int z = 1; z <= 3; z++){
+								Sleep(750);
+								printf(".");
+						}
+						return 0;
+					}
+				
+			}
+		}
+	fclose(Arquivo);
+}
+//Exclui Compra
+
+int ExcluiCompra(){
+	FILE *Arquivo;
+	
+	compra n;
+	int parametro, confirma_cod, y = 1;
+	char codigo[3], c, d;
+	
+	char Local_arq[] = {"Compra_e_Venda.txt"};
+	
+	Arquivo = fopen(Local_arq,"rb+");
+	
+		if(Arquivo == NULL){
+			printf("Erro abertura do Arquivo : %s. Tecle algo !\n",Local_arq);
+		}
+		else{
+			for(int x = 0; x < y; x++){
+				rewind(Arquivo);
+				printf("Digite o codigo da ordem de compra que deseja excluir: ");
+					gets(codigo);
+				fflush(stdin);
+				
+				system("CLS");
+				
+				confirma_cod = 0;
+				while(fread(&n,sizeof(n),1,Arquivo)){
+					if(strcmp(codigo,n.id_compra)==0){
+						confirma_cod = 1;
+						printf("-DADOS DA COMPRA-\n\nId: %s\nProduto(s) comprado(s): %s\nQuantidade: %s\nValor Total R$ %s\n\n\n", n.id_compra, n.nomeproduto, n.qnt, n.valor_total);
+						
+						printf("\n\nTem certeza que deseja excluir esta ordem? (s ou n)");
+						fflush(stdin);
+						d = getch();
+						
+						if(d == 's'){
+							memset(&n,0,sizeof(n));
+							fseek(Arquivo,sizeof(n)*-1,SEEK_CUR);
+							parametro = fwrite(&n,sizeof(n),1,Arquivo);
+							
+								if(parametro == 1){
+									system("CLS");
+									printf("Ordem excluida com sucesso!");
+									Sleep(1500);
+								}else{
+									system("CLS");
+									printf("Não foi possível efetuar a exclusão, favor informar o gerente.");
+									Sleep(2000);
+									return 0;
+								}
+						}
+						system("CLS");
+						printf("Deseja excluir outra Ordem? (s ou n)");
+						fflush(stdin);
+						c = getch();
+						
+						if(c == 's'){
+							system("CLS");
+							y++;
+						}else{
+							system("CLS");
+							return 0;
+						}
+					}
+				}
+					if(!confirma_cod){
+						printf("Não há ordens cadastradas com este código!\nVoltando ao menu");
+							for(int z = 1; z <= 3; z++){
+								Sleep(750);
+								printf(".");
+						}
+						return 0;
+					}
+				
+			}
+		}
+	fclose(Arquivo);
+}
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //Menu
 int menu(){
@@ -501,17 +928,11 @@ int menu(){
 	
 	printf("Selecione a opção desejada:\n\n1-Criar Cliente\n2-Consultar Cliente\n3-Atualizar Cliente\n4-Excluir Cliente\n5-Criar Produto\n6-Consultar Produto\n7-Atualizar Produto\n8-Excluir Produto\n9-Criar Ordem de Compra\n10-Consultar Ordem de Compra\n11-Atualizar Ordem de Compra\n12-Excluir Ordem de Compra\n0-Sair\n\n");
 	scanf("%d",&escolha);
-	if(escolha < 0 || escolha > 12){
+
+	while(escolha < 0 || escolha > 12){
 		system("CLS");
 		system("COLOR 4");
-		printf("Opção Inválida\nFechando o sistema");
-		
-		for(i = 1; i <= 3; i++){
-			Sleep(500);
-			printf(".");
-		}
-		
-		exit(0);
+		printf("Opção Inválida\n");
 	}
 	return escolha;
 }
@@ -538,54 +959,78 @@ int main(){
 				CadastroCliente();
 			system("CLS");
 			break;
+			
 			case 2://consultar cliente
 			system("CLS");
 				fflush(stdin);
 				ConsultaCliente();
 			system("CLS");
 			break;
+			
 			case 3://atualizar cliente
-			
+			system("CLS");
+				fflush(stdin);
+				AtualizaCliente();
+			system("CLS");
 			break;
+			
 			case 4://excluir cliente
-			
+			system("CLS");
+				fflush(stdin);
+				ExcluiCliente();
+			system("CLS");
 			break;
+			
 			case 5://criar produto
 			system("CLS");
 				fflush(stdin);
 				CadastroProduto();
 			system("CLS");
 			break;
+			
 			case 6://consultar produto
 			system("CLS");
 				fflush(stdin);
 				ConsultaProduto();
 			system("CLS");
 			break;
+			
 			case 7://atualizar produto
-			
+			system("CLS");
+				fflush(stdin);
+				AtualizaProduto();
+			system("CLS");
 			break;
+			
 			case 8://excluir produto
-			
+			system("CLS");
+				fflush(stdin);
+				ExcluiProduto();
+			system("CLS");
 			break;
+			
 			case 9://criar ordem de compra/venda
 			system("CLS");
 				fflush(stdin);
 				CadastroCompra();
 			system("CLS");
 			break;
+			
 			case 10://consultar ordem de compra/venda
 			system("CLS");
 				fflush(stdin);
 				ConsultaCompra();
 			system("CLS");
 			break;
+			
 			case 11://atualizar ordem de compra/venda
 			
 			break;
+			
 			case 12://excluir ordem de compra/venda
 			
 			break;
+			
 			default:
 				system("CLS");
 				printf("Encerrando programa");
