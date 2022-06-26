@@ -12,7 +12,7 @@ typedef struct{
 	char id_cliente[3];
 	char nomecliente[50];
 	char cpf[11];
-	char email[50];
+	char email[30];
 }cliente;
 //produto
 typedef struct{
@@ -298,6 +298,7 @@ int CadastroCompra(){
 				char c = confirmacao();
 				
 				if(c == 's'){
+					fseek(Arquivo1,sizeof(m)*-1,SEEK_CUR);
 					parametro1 = fwrite(&m, sizeof(m),1,Arquivo1);
 					parametro = fwrite(&n, sizeof(n),1,Arquivo);
 					if(parametro == 1 && parametro1 == 1){
@@ -434,7 +435,64 @@ int ConsultaProduto(){
 		}
 	fclose(Arquivo);
 }
+//Consulta Compra
 
+int ConsultaCompra(){
+		FILE *Arquivo;
+	
+	compra n;
+	int parametro, confirma_cod, y = 1;
+	char codigo[3], c;
+	
+	char Local_arq[] = {"Compra_e_Venda.txt"};
+	
+	Arquivo = fopen(Local_arq,"rb");
+	
+		if(Arquivo == NULL){
+			printf("Erro abertura do Arquivo : %s. Tecle algo !\n",Local_arq);
+		}
+		else{
+			for(int x = 0; x < y; x++){
+				rewind(Arquivo);
+				printf("Digite o codigo da compra que deseja consultar: ");
+					gets(codigo);
+				fflush(stdin);
+				
+				system("CLS");
+				
+				confirma_cod = 0;
+				while(fread(&n,sizeof(n),1,Arquivo)){
+					if(strcmp(codigo,n.id_compra)==0){
+						confirma_cod = 1;
+						printf("-DADOS DA COMPRA-\n\nId: %s\nProduto(s) comprado(s): %s\nQuantidade: %s\nValor Total R$ %s\n\n", n.id_compra, n.nomeproduto, n.qnt, n.valor_total);
+						system("PAUSE");
+						system("CLS");
+						printf("Deseja realizar outra consulta? (s ou n)");
+						fflush(stdin);
+						c = getch();
+						
+						if(c == 's'){
+							system("CLS");
+							y++;
+						}else{
+							system("CLS");
+							return 0;
+						}
+					}
+				}
+					if(!confirma_cod){
+						printf("Não há compras cadastradas com este código!\nVoltando ao menu");
+							for(int z = 1; z <= 3; z++){
+								Sleep(750);
+								printf(".");
+						}
+						return 0;
+					}
+				
+			}
+		}
+	fclose(Arquivo);
+}
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //Menu
@@ -517,7 +575,10 @@ int main(){
 			system("CLS");
 			break;
 			case 10://consultar ordem de compra/venda
-			
+			system("CLS");
+				fflush(stdin);
+				ConsultaCompra();
+			system("CLS");
 			break;
 			case 11://atualizar ordem de compra/venda
 			
