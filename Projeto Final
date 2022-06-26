@@ -319,7 +319,66 @@ int CadastroCompra(){
 	
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-//Consultas
+//Consulta Cliente
+int ConsultaCliente(){
+	FILE *Arquivo;
+	
+	cliente n;
+	int parametro, confirma_cod, y = 1;
+	char codigo[3], c;
+	
+	char Local_arq[] = {"Clientes.txt"};
+	
+	Arquivo = fopen(Local_arq,"rb");
+	
+		if(Arquivo == NULL){
+			printf("Erro abertura do Arquivo : %s. Tecle algo !\n",Local_arq);
+		}
+		else{
+			for(int x = 0; x < y; x++){
+				rewind(Arquivo);
+				printf("Digite o codigo do cliente que deseja consultar: ");
+					gets(codigo);
+				fflush(stdin);
+				
+				system("CLS");
+				
+				confirma_cod = 0;
+				while(fread(&n,sizeof(n),1,Arquivo)){
+					if(strcmp(codigo,n.id_cliente)==0){
+						confirma_cod = 1;
+						printf("-DADOS DO CLIENTE-\n\nId: %s\nNome: %s\nCpf: %s\nE-mail: %s\n\n", n.id_cliente, n.nomecliente, n.cpf, n.email);
+						system("PAUSE");
+						system("CLS");
+						printf("Deseja realizar outra consulta? (s ou n)");
+						fflush(stdin);
+						c = getch();
+						
+						if(c == 's'){
+							system("CLS");
+							y++;
+						}else{
+							system("CLS");
+							return 0;
+						}
+					}
+				}
+					if(!confirma_cod){
+						printf("Não há clientes cadastrados com este código!\nVoltando ao menu");
+							for(int z = 1; z <= 3; z++){
+								Sleep(750);
+								printf(".");
+						}
+						return 0;
+					}
+				
+			}
+		}
+	fclose(Arquivo);
+}
+//Consulta Produto
+
+
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //Menu
@@ -366,7 +425,10 @@ int main(){
 			system("CLS");
 			break;
 			case 2://consultar cliente
-			
+			system("CLS");
+				fflush(stdin);
+				ConsultaCliente();
+			system("CLS");
 			break;
 			case 3://atualizar cliente
 			
