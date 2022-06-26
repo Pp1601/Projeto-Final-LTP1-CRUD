@@ -1,0 +1,122 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <locale.h>
+#include <conio.h>
+#include <string.h>
+#include <Windows.h>
+#include <math.h>
+
+typedef struct{
+	char id_produto[3];
+	char nomeproduto[50];
+	char valor[11];
+	char estoque[5];
+}produto;
+
+char confirmacao(){
+	char c;
+	
+	do {
+		
+ 		printf("\nConfirma o cadastro? (s ou n)" );
+ 		c= getch();
+ 		
+ 	}while (c != 's' && c != 'n');
+ 	
+ 	return c;
+}
+
+int main(){
+	
+	setlocale(LC_ALL,"Portuguese");
+	
+	FILE *Arquivo;
+	
+	produto n;
+	int parametro, confirma_cod, y = 1;
+	char codigo[3], c, d;
+	
+	char Local_arq[] = {"Produtos.txt"};
+	
+	Arquivo = fopen(Local_arq,"rb+");
+	
+		if(Arquivo == NULL){
+			printf("Erro abertura do Arquivo : %s. Tecle algo !\n",Local_arq);
+		}
+		else{
+			for(int x = 0; x < y; x++){
+				rewind(Arquivo);
+				printf("Digite o codigo do produto que deseja alterar: ");
+					gets(codigo);
+				fflush(stdin);
+				
+				system("CLS");
+				
+				confirma_cod = 0;
+				while(fread(&n,sizeof(n),1,Arquivo)){
+					if(strcmp(codigo,n.id_produto)==0){
+						confirma_cod = 1;
+						printf("-DADOS DO PRODUTO-\n\nId: %s\nNome: %s\nValor R$ %s\nQuantidade disponível em estoque: %s\n\n\n", n.id_produto, n.nomeproduto, n.valor, n.estoque);
+						printf("-NOVOS DADOS DO PRODUTO-");
+						printf("\n\nId: ");
+							gets(n.id_produto);
+						fflush(stdin);
+			
+						printf("Nome: ");
+							gets(n.nomeproduto);
+						fflush(stdin);
+				
+						printf("Valor R$ ");
+							gets(n.valor);
+						fflush(stdin);
+				
+						printf("Quantidade disponível em estoque: ");
+							gets(n.estoque);
+						fflush(stdin);
+						
+						printf("\n\nConfirma as alterações? (s ou n)");
+						fflush(stdin);
+						d = getch();
+						
+						if(d == 's'){
+							fseek(Arquivo,sizeof(n)*-1,SEEK_CUR);
+							parametro = fwrite(&n,sizeof(n),1,Arquivo);
+							
+								if(parametro == 1){
+									system("CLS");
+									printf("Alteração concluida com sucesso!");
+									Sleep(1500);
+								}else{
+									system("CLS");
+									printf("Não foi possível efetuar o cadastro, favor informar o gerente.");
+									Sleep(2000);
+									return 0;
+								}
+						}
+						system("CLS");
+						printf("Deseja realizar outra alteração? (s ou n)");
+						fflush(stdin);
+						c = getch();
+						
+						if(c == 's'){
+							system("CLS");
+							y++;
+						}else{
+							system("CLS");
+							return 0;
+						}
+					}
+				}
+					if(!confirma_cod){
+						printf("Não há produtos cadastrados com este código!\nVoltando ao menu");
+							for(int z = 1; z <= 3; z++){
+								Sleep(750);
+								printf(".");
+						}
+						return 0;
+					}
+				
+			}
+		}
+	fclose(Arquivo);
+}
