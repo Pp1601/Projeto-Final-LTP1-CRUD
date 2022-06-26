@@ -180,6 +180,7 @@ int main(){
 				char c = confirmacao();
 				
 				if(c == 's'){
+					fseek(Arquivo1,sizeof(m)*-1,SEEK_CUR);
 					parametro1 = fwrite(&m, sizeof(m),1,Arquivo1);
 					parametro = fwrite(&n, sizeof(n),1,Arquivo);
 					if(parametro == 1 && parametro1 == 1){
