@@ -929,7 +929,7 @@ int menu(){
 	printf("Selecione a opção desejada:\n\n1-Criar Cliente\n2-Consultar Cliente\n3-Atualizar Cliente\n4-Excluir Cliente\n5-Criar Produto\n6-Consultar Produto\n7-Atualizar Produto\n8-Excluir Produto\n9-Criar Ordem de Compra\n10-Consultar Ordem de Compra\n11-Atualizar Ordem de Compra\n12-Excluir Ordem de Compra\n0-Sair\n\n");
 	scanf("%d",&escolha);
 
-	while(escolha < 0 || escolha > 12){
+	if(escolha < 0 || escolha > 12){
 		system("CLS");
 		system("COLOR 4");
 		printf("Opção Inválida\n");
@@ -1040,6 +1040,7 @@ int main(){
 				}
 				printf("=)");
 				printf("\n\n");
+				processo = 0;
 			break;
 		
 		}
