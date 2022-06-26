@@ -378,6 +378,62 @@ int ConsultaCliente(){
 }
 //Consulta Produto
 
+int ConsultaProduto(){
+	FILE *Arquivo;
+	
+	produto n;
+	int parametro, confirma_cod, y = 1;
+	char codigo[3], c;
+	
+	char Local_arq[] = {"Produtos.txt"};
+	
+	Arquivo = fopen(Local_arq,"rb");
+	
+		if(Arquivo == NULL){
+			printf("Erro abertura do Arquivo : %s. Tecle algo !\n",Local_arq);
+		}
+		else{
+			for(int x = 0; x < y; x++){
+				rewind(Arquivo);
+				printf("Digite o codigo do produto que deseja consultar: ");
+					gets(codigo);
+				fflush(stdin);
+				
+				system("CLS");
+				
+				confirma_cod = 0;
+				while(fread(&n,sizeof(n),1,Arquivo)){
+					if(strcmp(codigo,n.id_produto)==0){
+						confirma_cod = 1;
+						printf("-DADOS DO PRODUTO-\n\nId: %s\nNome: %s\nValor R$ %s\nQuantidade disponível em estoque: %s\n\n", n.id_produto, n.nomeproduto, n.valor, n.estoque);
+						system("PAUSE");
+						system("CLS");
+						printf("Deseja realizar outra consulta? (s ou n)");
+						fflush(stdin);
+						c = getch();
+						
+						if(c == 's'){
+							system("CLS");
+							y++;
+						}else{
+							system("CLS");
+							return 0;
+						}
+					}
+				}
+					if(!confirma_cod){
+						printf("Não há produtos cadastrados com este código!\nVoltando ao menu");
+							for(int z = 1; z <= 3; z++){
+								Sleep(750);
+								printf(".");
+						}
+						return 0;
+					}
+				
+			}
+		}
+	fclose(Arquivo);
+}
 
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -443,7 +499,10 @@ int main(){
 			system("CLS");
 			break;
 			case 6://consultar produto
-			
+			system("CLS");
+				fflush(stdin);
+				ConsultaProduto();
+			system("CLS");
 			break;
 			case 7://atualizar produto
 			
