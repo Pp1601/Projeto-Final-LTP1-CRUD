@@ -1,0 +1,107 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <locale.h>
+#include <conio.h>
+#include <string.h>
+#include <Windows.h>
+#include <math.h>
+
+typedef struct{
+	char id_compra[3];
+	char nomeproduto[50];
+	char qnt[5];
+	char valor_total[11];
+}compra;
+
+char confirmacao(){
+	char c;
+	
+	do {
+		
+ 		printf("\nConfirma o cadastro? (s ou n)" );
+ 		c= getch();
+ 		
+ 	}while (c != 's' && c != 'n');
+ 	
+ 	return c;
+}
+
+int main(){
+	
+	setlocale(LC_ALL,"Portuguese");
+	
+	FILE *Arquivo;
+	
+	compra n;
+	int parametro, confirma_cod, y = 1;
+	char codigo[3], c, d;
+	
+	char Local_arq[] = {"Compra_e_Venda.txt"};
+	
+	Arquivo = fopen(Local_arq,"rb+");
+	
+		if(Arquivo == NULL){
+			printf("Erro abertura do Arquivo : %s. Tecle algo !\n",Local_arq);
+		}
+		else{
+			for(int x = 0; x < y; x++){
+				rewind(Arquivo);
+				printf("Digite o codigo da ordem de compra que deseja excluir: ");
+					gets(codigo);
+				fflush(stdin);
+				
+				system("CLS");
+				
+				confirma_cod = 0;
+				while(fread(&n,sizeof(n),1,Arquivo)){
+					if(strcmp(codigo,n.id_compra)==0){
+						confirma_cod = 1;
+						printf("-DADOS DA COMPRA-\n\nId: %s\nProduto(s) comprado(s): %s\nQuantidade: %s\nValor Total R$ %s\n\n\n", n.id_compra, n.nomeproduto, n.qnt, n.valor_total);
+						
+						printf("\n\nTem certeza que deseja excluir esta ordem? (s ou n)");
+						fflush(stdin);
+						d = getch();
+						
+						if(d == 's'){
+							memset(&n,NULL,sizeof(n));
+							fseek(Arquivo,sizeof(n)*-1,SEEK_CUR);
+							parametro = fwrite(&n,sizeof(n),1,Arquivo);
+							
+								if(parametro == 1){
+									system("CLS");
+									printf("Ordem excluida com sucesso!");
+									Sleep(1500);
+								}else{
+									system("CLS");
+									printf("Não foi possível efetuar a exclusão, favor informar o gerente.");
+									Sleep(2000);
+									return 0;
+								}
+						}
+						system("CLS");
+						printf("Deseja excluir outra Ordem? (s ou n)");
+						fflush(stdin);
+						c = getch();
+						
+						if(c == 's'){
+							system("CLS");
+							y++;
+						}else{
+							system("CLS");
+							return 0;
+						}
+					}
+				}
+					if(!confirma_cod){
+						printf("Não há ordens cadastradas com este código!\nVoltando ao menu");
+							for(int z = 1; z <= 3; z++){
+								Sleep(750);
+								printf(".");
+						}
+						return 0;
+					}
+				
+			}
+		}
+	fclose(Arquivo);
+}
