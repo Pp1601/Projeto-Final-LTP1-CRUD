@@ -231,14 +231,6 @@ int CadastroCompra(){
 			printf("Digite o codigo da compra : ");
 				gets(n.id_compra);
 			fflush(stdin);
-			
-			printf("\nDigite quantos produtos deseja comprar: ");
-				scanf("%d",&x);
-			fflush(stdin);
-			
-			for(int i = 0; i < x; i++){
-			confirma_cod = 0;
-			rewind(Arquivo1);
 				
 			printf("\nDigite o codigo do produto : ");
 				gets(codigo);
@@ -294,7 +286,7 @@ int CadastroCompra(){
 					return 0;
 							
 				}
-	}
+	
 				char c = confirmacao();
 				
 				if(c == 's'){
@@ -685,6 +677,147 @@ int AtualizaProduto(){
 
 int AtualizaCompra(){
 	
+	FILE *Arquivo;
+	FILE *Arquivo1;
+	
+	compra n;
+	produto m, o;
+	int parametro, parametro1, parametro2, confirma_cod, y = 1;
+	char codigo[3], c, d;
+	
+	char Local_arq[] = {"Compra_e_Venda.txt"}, Produto_arq[] = {"Produtos.txt"};
+	
+	Arquivo = fopen(Local_arq,"rb+");
+	Arquivo1 = fopen(Produto_arq,"rb+");
+		if(Arquivo == NULL){
+			printf("Erro abertura do Arquivo : %s. Tecle algo !\n",Local_arq);
+		}
+		else{
+			for(int x = 0; x < y; x++){
+				rewind(Arquivo);
+				printf("Digite o codigo do cliente que deseja alterar: ");
+					gets(codigo);
+				fflush(stdin);
+				
+				system("CLS");
+				
+				confirma_cod = 0;
+				while(fread(&n,sizeof(n),1,Arquivo)){
+					if(strcmp(codigo,n.id_compra)==0){
+						confirma_cod = 1;
+						printf("-DADOS DA COMPRA-\n\nId: %s\nProduto(s) comprado(s): %s\nQuantidade: %s\nValor Total R$ %s\n\n\n", n.id_compra, n.nomeproduto, n.qnt, n.valor_total);
+						
+						while(fread(&o,sizeof(o),1,Arquivo1)){
+							if(strcmp(o.nomeproduto,n.nomeproduto)==0){
+								double estoque_atual = atof(o.estoque);
+								double fora_de_estoque = atof(n.qnt);
+								
+								estoque_atual = estoque_atual + fora_de_estoque;
+								
+								ftoa(estoque_atual, o.estoque, 0);
+							}
+						}
+						
+						rewind(Arquivo1);
+						
+						printf("-NOVOS DADOS DA COMPRA-");
+						printf("\n\nId: ");
+							gets(n.id_compra);
+						fflush(stdin);
+			
+						printf("Id Produto do desejado: ");
+							gets(codigo);
+						fflush(stdin);
+				
+						while(fread(&m,sizeof(m),1,Arquivo1)){
+
+							if(strcmp(codigo,m.id_produto) == 0){
+								confirma_cod = 1;
+				
+								printf("\nDigite a quantidade desejada deste produto: ");
+									gets(n.qnt);
+								fflush(stdin);
+				
+								double qnt_estoque = atof(m.estoque);
+								double qnt_desejada = atof(n.qnt);
+				
+								qnt_estoque = qnt_estoque - qnt_desejada;
+				
+							if(qnt_estoque >= 0){
+						
+								strcpy(n.nomeproduto,m.nomeproduto);
+						
+								ftoa(qnt_estoque, m.estoque, 0);
+						
+								double preco = atof(m.valor);
+								preco = preco * qnt_desejada;
+						
+								double preco_cheio = 0;
+								preco_cheio = preco_cheio + preco;
+						
+								ftoa(preco_cheio, n.valor_total, 2);
+						
+							}
+						else{
+							printf("\n\nQuantidade não disponivel em estoque!\n\nVoltando ao menu");
+								for(int y = 1; y <= 3; y++){
+									Sleep(500);
+									printf(".");
+								}
+							return 0;
+						}
+						}
+					}
+						printf("\n\nConfirma as alterações? (s ou n)");
+						fflush(stdin);
+						d = getch();
+						
+						if(d == 's'){
+							fseek(Arquivo1,sizeof(o)*-1,SEEK_CUR);
+							parametro2 = fwrite(&o, sizeof(o),1,Arquivo1);
+							fseek(Arquivo1,sizeof(m)*-1,SEEK_CUR);
+							parametro1 = fwrite(&m, sizeof(m),1,Arquivo1);
+							fseek(Arquivo,sizeof(n)*-1,SEEK_CUR);
+							parametro = fwrite(&n,sizeof(n),1,Arquivo);
+							
+								if(parametro == 1 && parametro1 == 1 && parametro2 == 1){
+									system("CLS");
+									printf("Alteração concluida com sucesso!");
+									Sleep(1500);
+								}else{
+									system("CLS");
+									printf("Não foi possível efetuar o cadastro, favor informar o gerente.");
+									Sleep(2000);
+									return 0;
+								}
+						}
+						system("CLS");
+						printf("Deseja realizar outra alteração? (s ou n)");
+						fflush(stdin);
+						c = getch();
+						
+						if(c == 's'){
+							system("CLS");
+							y++;
+						}else{
+							system("CLS");
+							return 0;
+						}
+					}
+				}
+					if(!confirma_cod){
+						printf("Não há clientes cadastrados com este código!\nVoltando ao menu");
+							for(int z = 1; z <= 3; z++){
+								Sleep(750);
+								printf(".");
+						}
+						return 0;
+					}
+				
+			}
+		}
+	fclose(Arquivo);
+	fclose(Arquivo1);
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //Exclui Cliente
@@ -1024,11 +1157,17 @@ int main(){
 			break;
 			
 			case 11://atualizar ordem de compra/venda
-			
+			system("CLS");
+				fflush(stdin);
+				AtualizaCompra();
+			system("CLS");
 			break;
 			
 			case 12://excluir ordem de compra/venda
-			
+			system("CLS");
+				fflush(stdin);
+				ExcluiCompra();
+			system("CLS");
 			break;
 			
 			default:
