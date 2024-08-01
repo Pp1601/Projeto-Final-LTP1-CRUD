@@ -18,6 +18,7 @@ Produtos
 Compra/Venda
 
 - As ordens de compra e venda deverão ter NUMERO DO PEDIDO, COD CLIENTE, COD PRODUTO, QNT DESEJADA e VALOR TOTAL.
+
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Competencias
 
@@ -35,6 +36,7 @@ O que é CRUD (Create, Read, Update, Delete)? É a capacidade de Criar,
 buscar por, atualizar e deletar, ou seja, devo conseguir cadastrar um
 cliente, atualizar os dados desse cliente, listar os clientes e excluir um
 cliente.
+
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 PREVIA CLIENTES 
@@ -90,6 +92,7 @@ Cod: 04
 Nome: AMD Radeon RX 550 pulse
 Valor: 749,90
 Qnt Estoque: 36
+
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 PREVIA COMPRA/VENDA (completar dps)
