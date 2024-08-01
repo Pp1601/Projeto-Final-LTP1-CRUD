@@ -92,14 +92,3 @@ Cod: 04
 Nome: AMD Radeon RX 550 pulse
 Valor: 749,90
 Qnt Estoque: 36
-
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-PREVIA COMPRA/VENDA (completar dps)
-
-1°ordem
-
-cod_compra: 01
-nome do produto: 
-Qnt: 
-Preço total :
