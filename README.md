@@ -1,41 +1,24 @@
 # Projeto-Final-LTP1
 Projeto final da disciplina Linguagens e Técnicas de Programação ministrada na linguagem C do 1ºSemestre do curso de Engenharia de Computação
+Sistema CRUD 100% funcional.
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Ideias
+Conteúdo
 
 LOJA
 
-- Vai ser focada na venda de placas de video com o objetivo de mineração de crypto moedas.
+- Focada na venda de placas de video.
 
 Clientes
 
-- Os perfis dos clientes irão ter CÓDIGO ID, CPF, NOME , TELEFONE e E-MAIL(OPCIONAL).
+- Os perfis dos clientes com ID, CPF, NOME , TELEFONE e E-MAIL(OPCIONAL).
 
 Produtos
 
-- Os produtos irão ter CÓDIGO PROD, NOME PROD, VALOR e QUANTIDADE NO ESTOQUE.
+- Os produtos com CÓDIGO PROD, NOME PROD, VALOR e QUANTIDADE NO ESTOQUE.
 
 Compra/Venda
 
-- As ordens de compra e venda deverão ter NUMERO DO PEDIDO, COD CLIENTE, COD PRODUTO, QNT DESEJADA e VALOR TOTAL.
-
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Competencias
-
-Critérios de Avaliação:
-
-Menu de funcionalidades do sistema (1,0)
-CRUD Cliente (2,0)
-CRUD Produto (2,0)
-CRUD Compra/Venda (2,0)
-Utilização de arquivo para armazenamento dos dados (2,0)
-Controle de estoque (Verificar se existe a quantidade de produtos ao vender, se
-não existir, não permitir a venda e sugerir mudar a quantidade) (1,0)
-
-O que é CRUD (Create, Read, Update, Delete)? É a capacidade de Criar,
-buscar por, atualizar e deletar, ou seja, devo conseguir cadastrar um
-cliente, atualizar os dados desse cliente, listar os clientes e excluir um
-cliente.
+- Ordens de compra e venda com NUMERO DO PEDIDO, COD CLIENTE, COD PRODUTO, QNT DESEJADA e VALOR TOTAL.
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
